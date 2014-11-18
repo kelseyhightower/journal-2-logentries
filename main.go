@@ -1,15 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"log"
 	"os"
-	"os/exec"
 
+	"github.com/kelseyhightower/journal-2-logentries/journal"
 	"github.com/kelseyhightower/journal-2-logentries/logentries"
 )
 
 func main() {
+	socket := os.Getenv("LOGENTRIES_JOURNAL_SOCKET")
+	if socket == "" {
+		socket = journal.DefaultSocket
+	}
 	url := os.Getenv("LOGENTRIES_URL")
 	if url == "" {
 		url = logentries.DefaultUrl
@@ -18,7 +21,7 @@ func main() {
 	if token == "" {
 		log.Fatal("non-empty input token (LOGENTRIES_TOKEN) is required. See https://logentries.com/doc/input-token")
 	}
-	logs, err := followJournal()
+	logs, err := journal.Follow(socket)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -34,27 +37,4 @@ func main() {
 			}
 		}
 	}
-}
-
-func followJournal() (<-chan []byte, error) {
-	cmd := exec.Command("/usr/bin/journalctl", "--follow")
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return nil, err
-	}
-	if err := cmd.Start(); err != nil {
-		return nil, err
-	}
-	logs := make(chan []byte)
-	scanner := bufio.NewScanner(stdout)
-	go func() {
-		for scanner.Scan() {
-			logs <- scanner.Bytes()
-		}
-		if err := scanner.Err(); err != nil {
-			log.Println(err.Error())
-			close(logs)
-		}
-	}()
-	return logs, nil
 }
