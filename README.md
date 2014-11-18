@@ -34,7 +34,13 @@ docker build -t quay.io/<username>/journal-2-logentries .
 docker push quay.io/<username>/journal-2-logentries
 ```
 
-## Systemd
+## Fleet integration
+
+```
+etcdctl set /logentries.com/token <token>
+```
+
+Edit `journal-2-logentries.service`
 
 ```
 [Unit]
@@ -53,4 +59,8 @@ quay.io/kelseyhightower/journal-2-logentries"
 
 [X-Fleet]
 Global=true
+```
+
+```
+fleetctl start journal-2-logentries.service
 ```
