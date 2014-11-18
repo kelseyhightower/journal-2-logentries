@@ -16,7 +16,7 @@ quay.io/kelseyhightower/journal-2-logentries
 
 All configuration is done through env vars.
 
-* `LOGENTRIES_JOURNAL_SOCKET` - The path to the systemd-journal-gatewayd socket. Defaults to `/run/journald.sock`
+* `LOGENTRIES_JOURNAL_SOCKET` - The systemd-journal-gatewayd socket. Defaults to `/run/journald.sock`
 * `LOGENTRIES_URL` - The log entry url. Defaults to `api.logentries.com:20000`
 * `LOGENTRIES_TOKEN` - The logentries.com TCP token -- See https://logentries.com/doc/input-token
 
