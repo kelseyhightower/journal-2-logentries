@@ -1,5 +1,6 @@
 # journal-2-logentries 
 
+Ship systemd journal entires to logentries.com over SSL.
 
 ## Usage
 
