@@ -23,7 +23,7 @@ All configuration is done through env vars.
 
 Note: Make sure that systemd-journal-gatewayd is actually listening on
 `/run/journald.sock`. This is not done by default on CoreOS -- See
-https://logentries.com/doc/coreos/#cloud-config
+[example cloud-config](cloud-config.yaml)
 
 ## Building
 
