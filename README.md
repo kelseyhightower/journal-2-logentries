@@ -21,6 +21,10 @@ All configuration is done through env vars.
 * `LOGENTRIES_URL` - The log entry url. `api.logentries.com:20000`
 * `LOGENTRIES_TOKEN` - The logentries.com TCP token -- See https://logentries.com/doc/input-token
 
+Note: Make sure that systemd-journal-gatewayd is actually listening on
+`/run/journald.sock`. This is not done by default on CoreOS -- See
+[example cloud-config](cloud-config.yaml)
+
 ## Building
 
 ```
